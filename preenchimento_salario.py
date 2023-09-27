@@ -132,11 +132,12 @@ class PreenchimentoSalario():
 
     # RATCCUSTO
 
-    def valida_idratccu(self):
-        return "-1"
+    def valida_idratccu(self, valor):
+        return "-"+str(valor)
+    
 
     def valida_idlan(self):
-        return "-1"
+        return "-0"
 
     # TO DO 
     def valida_codccusto(self):

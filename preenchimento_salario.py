@@ -145,8 +145,8 @@ class PreenchimentoSalario():
     def valida_nome(self):
         return "Departamento Pessoal"
 
-    def valida_valor(self):
-        return "0"
+    def valida_valor(self, valor):
+        return "{:.4f}".format(valor)
 
     def valida_percentual(self):
         return "0.0000"

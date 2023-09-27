@@ -68,7 +68,7 @@ class Generate_XML():
                     ,codcolcxa, codcxa, codtdo, codfilial, seriedocumento, codmoevaloriginal, idformapagto, insseoutraempresa, percentbaseinss, codreceita, insseditado,
                     irrfeditado, reutilizacao)
         
-        xml_ratccusto = self.gerar_xml_ratccusto(idratccu_rat, codcoligada_rat, idlan_rat, codccusto_rat, nome_rat, valor_rat, percentual_rat, codcolnatfinanceira_rat, codnatfinanceira_rat, descricao_rat)
+        xml_ratccusto = self.gerar_xml_ratccusto(idratccu_rat, codcoligada_rat, idlan_rat, codccusto_rat, nome_rat, valor_rat, percentual_rat, codcolnatfinanceira_rat, "3.03.01.04", "Salário")
         
         # Adicionar o XML do RATCCUSTO abaixo do XML do LAN
         xml_lan.append(xml_ratccusto)
@@ -83,13 +83,7 @@ class Generate_XML():
         xml_lan = self.gerar_xml_lan(codcoligada, idlan, numerodocumento, classificacao, pagrec, statuslan, datavencimento, dataemissao, valororiginal, valorbaseirrf, codcolcfo, codcfo
                     ,codcolcxa, codcxa, codtdo, codfilial, seriedocumento, codmoevaloriginal, idformapagto, insseoutraempresa, percentbaseinss, codreceita, insseditado,
                     irrfeditado, reutilizacao)
-        xml_ratccusto1 = self.gerar_xml_ratccusto(idratccu_rat, codcoligada_rat, idlan_rat, codccusto_rat, nome_rat, valor_rat, percentual_rat, codcolnatfinanceira_rat, codnatfinanceira_rat, descricao_rat)
-        xml_ratccusto2 = self.gerar_xml_ratccusto(idratccu_rat, codcoligada_rat, idlan_rat, codccusto_rat, nome_rat, valor_rat, percentual_rat, codcolnatfinanceira_rat, codnatfinanceira_rat, descricao_rat)
-        xml_ratccusto3 = self.gerar_xml_ratccusto(idratccu_rat, codcoligada_rat, idlan_rat, codccusto_rat, nome_rat, valor_rat, percentual_rat, codcolnatfinanceira_rat, codnatfinanceira_rat, descricao_rat)
         
-        xml_lan.append(xml_ratccusto1)
-        xml_lan.append(xml_ratccusto2)
-        xml_lan.append(xml_ratccusto3)
         
         return xml_lan
 
@@ -100,7 +94,7 @@ class Generate_XML():
         xml_salarios = self.gerar_xml_salario(codcoligada, idlan, numerodocumento, classificacao, pagrec, statuslan, datavencimento, dataemissao, valororiginal, valorbaseirrf, codcolcfo, codcfo
                     ,codcolcxa, codcxa, codtdo, codfilial, seriedocumento, codmoevaloriginal, idformapagto, insseoutraempresa, percentbaseinss, codreceita, insseditado,
                     irrfeditado, reutilizacao, idratccu_rat, codcoligada_rat, idlan_rat, codccusto_rat, nome_rat, valor_rat, percentual_rat, codcolnatfinanceira_rat, codnatfinanceira_rat, descricao_rat)
-        xml_beneficios = self.gerar_xml_beneficios(codcoligada, idlan, numerodocumento, classificacao, pagrec, statuslan, datavencimento, dataemissao, valororiginal, valorbaseirrf, codcolcfo, codcfo
+        xml_beneficios = self.gerar_xml_beneficios(codcoligada, idlan, str(int(numerodocumento)+1), classificacao, pagrec, statuslan, datavencimento, dataemissao, valororiginal, valorbaseirrf, codcolcfo, codcfo
                     ,codcolcxa, codcxa, codtdo, codfilial, seriedocumento, codmoevaloriginal, idformapagto, insseoutraempresa, percentbaseinss, codreceita, insseditado,
                     irrfeditado, reutilizacao, idratccu_rat, codcoligada_rat, idlan_rat, codccusto_rat, nome_rat, valor_rat, percentual_rat, codcolnatfinanceira_rat, codnatfinanceira_rat, descricao_rat)
 

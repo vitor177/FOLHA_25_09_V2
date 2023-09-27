@@ -96,8 +96,19 @@ for indice, linha in data_frame_folha.iloc[:-1].iterrows():
                 str(contador_id_ratccu), codcoligada_xml_rat, str(contador_id_lan), codccusto_xml_rat, nome_xml_rat, valor_xml_rat, percentual_xml_rat, codcolnatfinanceira_xml_rat, codnatfinanceira_xml_rat, descricao_xml_rat)
     
     finlan.append(tree)
+
+    valorSoma = 0
+
+    if (not math.isnan(acrescimo_pessoa)):
+        valorSoma += acrescimo_pessoa
+    if (not math.isnan(vale_transporte_pessoa)):
+        valorSoma += vale_transporte_pessoa
+    if (not math.isnan(vale_alimentacao_pessoa)):
+        valorSoma += vale_alimentacao_pessoa
+
+
     if (not math.isnan(acrescimo_pessoa)) or (not math.isnan(vale_transporte_pessoa)) or (not math.isnan(vale_alimentacao_pessoa)):
-        lan_beneficio = lancamento_salario.gerar_xml_lan(empresa_xml_lan, str(contador_id_lan-1) , str(int(numerodocumento_xml_lan)+1), classificacao_xml_lan, pag_rec_xml_lan, statuslan_xml_lan, data_vencimento_xml_lan, data_emissao_xml_lan, valor_original_xml_lan, valor_base_irrf_xml_lan, codcolcfo_xml_lan, codcfo_xml_lan
+        lan_beneficio = lancamento_salario.gerar_xml_lan(empresa_xml_lan, str(contador_id_lan-1) , str(int(numerodocumento_xml_lan)+1), classificacao_xml_lan, pag_rec_xml_lan, statuslan_xml_lan, data_vencimento_xml_lan, data_emissao_xml_lan, "{:.4f}".format(valorSoma), valor_base_irrf_xml_lan, codcolcfo_xml_lan, codcfo_xml_lan
                     ,codcolcxa_xml_lan, codcxa_xml_lan, codtdo_xml_lan, codfilial_xml_lan, seriedocumento_xml_lan, codmoevalororiginal_xml_lan, idformapagto_xml_lan, inssemoutraempresa_xml_lan, percentbaseinss_xml_lan , codreceita_xml_lan, insseeditado_xml_lan,
                 irrfeditado_xml_lan,  reutilizacao_xml_lan)
         finlan.append(lan_beneficio)

@@ -1,6 +1,7 @@
 # Falta terminar
 from datetime import datetime, timedelta
 import random
+import pandas as pd
 
 class PreenchimentoSalario():
 
@@ -77,9 +78,11 @@ class PreenchimentoSalario():
         return "0"
     
     # TO DO
-    def valida_codcfo(self):
-        return "000000630"
-
+    def valida_codcfo(self, cpf):
+        dtype_dict = {'CODCFO': str, 'NOMEFANTASIA': str, 'CGCCFO': str}
+        fornecedores_cadastrados_totvs = pd.read_excel('fornecedores.XLSX', dtype=dtype_dict)
+        return str(fornecedores_cadastrados_totvs[fornecedores_cadastrados_totvs['CGCCFO'] == cpf]['CODCFO']).split( )[1]
+    
     # TO DO
     def valida_codcolcxa(self):
         return "2"

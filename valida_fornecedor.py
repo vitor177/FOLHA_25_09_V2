@@ -8,7 +8,7 @@ def remove_caracteres_especiais(texto):
 
 def valida_fornecedor():
 
-    fornecedores_cadastrados_totvs = pd.read_excel('fornecedores.XLSX')
+    fornecedores_cadastrados_totvs = pd.read_excel('fornecedores_homolog.XLSX')
     data_frame_folha = pd.read_excel('CG - FOLHA DE PAGAMENTO 10_2023.xlsx', sheet_name="FOLPAG ENGPAC")
     
     with open('fornecedores_nao_cadastrados.txt', 'w') as arquivo_saida:

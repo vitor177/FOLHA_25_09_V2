@@ -12,7 +12,7 @@ finlan = ET.Element("FinLAN")
 
 contador_id_lan = 0
 contador_id_ratccu = 0
-# Lançamento salários
+# Lançamento
 for indice, linha in data_frame_folha.iloc[:-1].iterrows():
 
     #print(linha['NOME'])
@@ -59,7 +59,11 @@ for indice, linha in data_frame_folha.iloc[:-1].iterrows():
     valor_original_xml_lan = usuario_instancia.valida_valor_original(total_liquido_pessoa)
     valor_base_irrf_xml_lan = usuario_instancia.valida_valor_base_irrf()
 
-    codcolcfo_xml_lan = usuario_instancia.valida_codcolcfo()
+    codcolcfo_xml_lan = usuario_instancia.valida_codcolcfo(linha['CPF'])
+
+    print("Efetuando lançamento de: ", linha['NOME'])
+
+
     codcfo_xml_lan = usuario_instancia.valida_codcfo(linha['CPF'])
     codcolcxa_xml_lan = usuario_instancia.valida_codcolcxa()
     codcxa_xml_lan = usuario_instancia.valida_codcxa()
@@ -106,27 +110,30 @@ for indice, linha in data_frame_folha.iloc[:-1].iterrows():
     if (not math.isnan(vale_alimentacao_pessoa)):
         valorSoma += vale_alimentacao_pessoa
 
+    contador_id_lan = contador_id_lan - 1
 
     if (not math.isnan(acrescimo_pessoa)) or (not math.isnan(vale_transporte_pessoa)) or (not math.isnan(vale_alimentacao_pessoa)):
-        lan_beneficio = lancamento_salario.gerar_xml_lan(empresa_xml_lan, str(contador_id_lan-1) , str(int(numerodocumento_xml_lan)+1), classificacao_xml_lan, pag_rec_xml_lan, statuslan_xml_lan, data_vencimento_xml_lan, data_emissao_xml_lan, "{:.4f}".format(valorSoma), valor_base_irrf_xml_lan, codcolcfo_xml_lan, codcfo_xml_lan
+        lan_beneficio = lancamento_salario.gerar_xml_lan(empresa_xml_lan, str(contador_id_lan) , str(int(numerodocumento_xml_lan)+1), classificacao_xml_lan, pag_rec_xml_lan, statuslan_xml_lan, data_vencimento_xml_lan, data_emissao_xml_lan, "{:.4f}".format(valorSoma), valor_base_irrf_xml_lan, codcolcfo_xml_lan, codcfo_xml_lan
                     ,codcolcxa_xml_lan, codcxa_xml_lan, codtdo_xml_lan, codfilial_xml_lan, seriedocumento_xml_lan, codmoevalororiginal_xml_lan, idformapagto_xml_lan, inssemoutraempresa_xml_lan, percentbaseinss_xml_lan , codreceita_xml_lan, insseeditado_xml_lan,
                 irrfeditado_xml_lan,  reutilizacao_xml_lan)
         finlan.append(lan_beneficio)
 
 
 # self, idratccu_rat, codcoligada_rat, idlan_rat, codccusto_rat, nome_rat, valor_rat, percentual_rat, codcolnatfinanceira_rat, codnatfinanceira_rat, descricao_rat
-    if not math.isnan(acrescimo_pessoa):
+    if (not math.isnan(acrescimo_pessoa)) and (acrescimo_pessoa>0):
         contador_id_ratccu -= 1
-        lan_ac = lancamento_salario.gerar_xml_ratccusto(str(contador_id_ratccu), codcoligada_xml_rat, str(contador_id_lan-1), codccusto_xml_rat, nome_xml_rat, usuario_instancia.valida_valor_original(acrescimo_pessoa), percentual_xml_rat, codcolnatfinanceira_xml_rat, "3.04.01.14", "Acrescimo")
+        lan_ac = lancamento_salario.gerar_xml_ratccusto(str(contador_id_ratccu), codcoligada_xml_rat, str(contador_id_lan), codccusto_xml_rat, nome_xml_rat, usuario_instancia.valida_valor_original(acrescimo_pessoa), percentual_xml_rat, codcolnatfinanceira_xml_rat, "3.04.01.14", "Acrescimo")
         finlan.append(lan_ac)
-    if not math.isnan(vale_transporte_pessoa):
+    if (not math.isnan(vale_transporte_pessoa)) and (vale_transporte_pessoa>0):
         contador_id_ratccu -= 1
-        lan_vt = lancamento_salario.gerar_xml_ratccusto(str(contador_id_ratccu), codcoligada_xml_rat, str(contador_id_lan-1), codccusto_xml_rat, nome_xml_rat,  usuario_instancia.valida_valor_original(vale_transporte_pessoa), percentual_xml_rat, codcolnatfinanceira_xml_rat, "3.03.01.06", "Vale Transporte")
+        lan_vt = lancamento_salario.gerar_xml_ratccusto(str(contador_id_ratccu), codcoligada_xml_rat, str(contador_id_lan), codccusto_xml_rat, nome_xml_rat,  usuario_instancia.valida_valor_original(vale_transporte_pessoa), percentual_xml_rat, codcolnatfinanceira_xml_rat, "3.03.01.06", "VT")
         finlan.append(lan_vt)
-    if not math.isnan(vale_alimentacao_pessoa):
+    if (not math.isnan(vale_alimentacao_pessoa)) and (vale_alimentacao_pessoa>0):
         contador_id_ratccu -= 1
-        lan_va = lancamento_salario.gerar_xml_ratccusto(str(contador_id_ratccu), codcoligada_xml_rat, str(contador_id_lan-1), codccusto_xml_rat, nome_xml_rat,  usuario_instancia.valida_valor_original(vale_alimentacao_pessoa), percentual_xml_rat, codcolnatfinanceira_xml_rat, "3.03.01.20", "Vale Alimentação")
+        lan_va = lancamento_salario.gerar_xml_ratccusto(str(contador_id_ratccu), codcoligada_xml_rat, str(contador_id_lan), codccusto_xml_rat, nome_xml_rat,  usuario_instancia.valida_valor_original(vale_alimentacao_pessoa), percentual_xml_rat, codcolnatfinanceira_xml_rat, "3.03.01.20", "VA")
         finlan.append(lan_va)
 
 tree = ET.ElementTree(finlan)
 tree.write("output.xml", encoding="utf-8", xml_declaration=True)
+
+print("Concluído")

@@ -63,24 +63,22 @@ class PreenchimentoSalario():
     def valida_valor_base_irrf(self):
         return "100.0000"
     
-    def valida_codcolcfo(self):
-        return "0"
-
-
 
     def valor_base_irrf(self):
         return "100.0000"
 
-    def codcolcfo(self):
-        return "0"
+    def valida_codcolcfo(self, cpf):
+        dtype_dict = {'CODCOLIGADA': str, 'CODCFO': str, 'NOMEFANTASIA': str, 'CGCCFO': str}
+        fornecedores_cadastrados_totvs = pd.read_excel('fornecedores_homolog.XLSX', dtype=dtype_dict)
 
-    def valida_codcolcfo(self):
-        return "0"
+
+        return str(fornecedores_cadastrados_totvs[fornecedores_cadastrados_totvs['CGCCFO'] == cpf]['CODCOLIGADA']).split( )[1]
+    
     
     # TO DO
     def valida_codcfo(self, cpf):
-        dtype_dict = {'CODCFO': str, 'NOMEFANTASIA': str, 'CGCCFO': str}
-        fornecedores_cadastrados_totvs = pd.read_excel('fornecedores.XLSX', dtype=dtype_dict)
+        dtype_dict = {'CODCFO': str, 'NOMEFANTASIA': str, 'CGCCFO': str, 'CODCOLIGADA': str}
+        fornecedores_cadastrados_totvs = pd.read_excel('fornecedores_homolog.XLSX', dtype=dtype_dict)
         return str(fornecedores_cadastrados_totvs[fornecedores_cadastrados_totvs['CGCCFO'] == cpf]['CODCFO']).split( )[1]
     
     # TO DO
@@ -137,10 +135,6 @@ class PreenchimentoSalario():
 
     def valida_idratccu(self, valor):
         return "-"+str(valor)
-    
-
-    def valida_idlan(self):
-        return "-0"
 
     # TO DO 
     def valida_codccusto(self):
@@ -165,3 +159,7 @@ class PreenchimentoSalario():
     # TO DO
     def valida_descricao(self):
         return "Acrescimo"
+    
+#teste = PreenchimentoSalario()
+#print(teste.valida_codcfo('023.923.974-14'))
+#print(teste.valida_codcolcfo('023.923.974-14'))

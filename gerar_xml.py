@@ -68,7 +68,7 @@ class Generate_XML():
                     ,codcolcxa, codcxa, codtdo, codfilial, seriedocumento, codmoevaloriginal, idformapagto, insseoutraempresa, percentbaseinss, codreceita, insseditado,
                     irrfeditado, reutilizacao)
         
-        xml_ratccusto = self.gerar_xml_ratccusto(idratccu_rat, codcoligada_rat, idlan_rat, codccusto_rat, nome_rat, valor_rat, percentual_rat, codcolnatfinanceira_rat, "3.03.01.04", "Salário")
+        xml_ratccusto = self.gerar_xml_ratccusto(idratccu_rat, codcoligada_rat, idlan_rat, codccusto_rat, nome_rat, valor_rat, percentual_rat, codcolnatfinanceira_rat, "3.03.01.04", "Salario")
         
         # Adicionar o XML do RATCCUSTO abaixo do XML do LAN
         xml_lan.append(xml_ratccusto)

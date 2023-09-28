@@ -62,6 +62,7 @@ for indice, linha in data_frame_folha.iloc[:-1].iterrows():
     codcolcfo_xml_lan = usuario_instancia.valida_codcolcfo(linha['CPF'])
 
     print("Efetuando lançamento de: ", linha['NOME'])
+    print("Com valor original de: ", valor_original_xml_lan)
 
 
     codcfo_xml_lan = usuario_instancia.valida_codcfo(linha['CPF'])
